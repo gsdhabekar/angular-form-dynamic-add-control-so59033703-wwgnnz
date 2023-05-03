@@ -1,0 +1,87 @@
+<mat-toolbar color="primary">
+  News bulletin - Dynamic form addition
+</mat-toolbar>
+<form class="basic-container" [formGroup]="emailForm">
+  <div formArrayName="emails">
+    <div
+      class="row"
+      *ngFor="let email of emailForm.get('emails').controls; let i = index"
+      [formGroupName]="i"
+    >
+      <!-- <div class="col-1">
+        <mat-icon class="mt-3">email</mat-icon>
+      </div> -->
+      <label class="pl-3">
+        <strong> News bulletin {{ i }} </strong></label
+      >
+      <mat-form-field class="col-10">
+        <input
+          matInput
+          formControlName="emailAddress"
+          placeholder="Title"
+          autocomplete="email"
+        />
+        <mat-error *ngFor="let validation of validationMsgs.emailAddress">
+          <div *ngIf="email.get('emailAddress').hasError(validation.type)">
+            {{ validation.message }}
+          </div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-10">
+        <mat-label>Description</mat-label>
+        <input
+          matInput
+          formControlName="emailLabel"
+          placeholder="Description"
+        />
+        <!-- <mat-select formControlName="emailLabel">
+          <mat-option *ngFor="let label of emailLabels" [value]="label">
+            {{label}}
+          </mat-option>
+        </mat-select> -->
+      </mat-form-field>
+      <mat-form-field class="col-10">
+        <mat-label>Links</mat-label>
+        <input
+          matInput
+          formControlName="emailLabel"
+          placeholder="[Link1,Link2...]"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-10">
+        <mat-label>Image</mat-label>
+        <input
+          matInput
+          formControlName="image"
+          placeholder="Select Image"
+          type="file"
+          name="browse"
+        />
+      </mat-form-field>
+
+      <div class="col d-flex justify-content-end">
+        <button
+          class="float-left"
+          mat-icon-button
+          color="primary"
+          aria-label="Remove/clear"
+          (click)="removeOrClearEmail(i)"
+          matTooltip="Remove"
+        >
+          <mat-icon>highlight_off</mat-icon>
+        </button>
+        <button
+          class="float-left"
+          mat-icon-button
+          color="primary"
+          aria-label="Add"
+          (click)="addEmailFormGroup()"
+          matTooltip="Add"
+        >
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
